@@ -62,9 +62,31 @@ function isSomeTrue(array, fn) {
  Необходимо выбрасывать исключение в случаях:
  - fn не является функцией (с текстом "fn is not a function")
  */
-function returnBadArguments(fn) {
 
+
+function returnBadArguments(fn) {
+    let array = [];
+
+    if (typeof fn !==  "function") {
+        throw new Error("fn is not a function")
+    }
+    // fn();  запуск функции 
+    for (let i = 1; i < arguments.length; i++) { //i - порядковывй номер || arguments[i] - значение порядкового номера
+        try {
+            fn(arguments[i]); // попробуй все элементы функции
+        } catch (e) { // если будет ошибка // e = объект самой ошибки
+            array.push(arguments[i]) // array.push - положить в массив
+        }
+    }
+    return array
 }
+
+/*
+ читает с верху вниз
+ 1 Всегда сначала проверки
+ 2 Объявление всех переменных в начале
+ 3 Сам код выполнения функции
+ */
 
 /*
  Задача 4:
@@ -80,7 +102,43 @@ function returnBadArguments(fn) {
  - number не является числом (с текстом "number is not a number")
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {}
+
+function calculator(number=0) {
+    if (typeof number !== 'number') { //typeof
+        throw new Error("number is not a number");
+    }
+    var obj = {
+        sum: function () { // метод
+            for (var i = 0; i < arguments.length; i++) {
+                number += arguments[i];
+            }
+            return number;
+        },
+        // obj.sum ( ) - вызов метода функции 
+        dif: function () { // определеи метода объекта
+            for (var i = 0; i < arguments.length; i++) {
+                number -= arguments[i]; // каждый аргумент
+            }
+            return number;
+        },
+        div: function () {
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] === 0) {
+                    throw new Error("division by 0");
+                }
+                number /= arguments[i];
+            }
+            return number;
+        },
+        mul: function () {
+            for (var i = 0; i < arguments.length; i++) {
+                number *= arguments[i];
+            }
+            return number;
+        }
+    };
+    return obj;
+}
 
 export {
     isAllTrue,
