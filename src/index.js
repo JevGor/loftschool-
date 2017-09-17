@@ -10,9 +10,22 @@
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isAllTrue(array, fn) {
-    array []
-    
-    fn (){}  
+
+    if (!Array.isArray(array) || array.length === 0) {
+        throw new Error("empty array")
+    }
+    if (typeof fn !==  "function") {
+        throw new Error("fn is not a function")
+    }
+
+    for (let i = 0; i < array.length; i++) {
+        console.log(array[i])
+        if (fn(array[i]) === false) {
+            return false
+        }
+    }
+
+    return true
 }
 
 /*
@@ -25,6 +38,20 @@ function isAllTrue(array, fn) {
  Зарпещено использовать встроенные методы для работы с массивами
  */
 function isSomeTrue(array, fn) {
+    if (!Array.isArray(array) || array.length === 0) {
+        throw new Error("empty array")
+    }
+    if (typeof fn !==  "function") {
+        throw new Error("fn is not a function")
+    }
+    for (let i = 0; i < array.length; i++) {
+        if (fn(array[i])) {
+            return true
+        }
+    }
+
+    return false
+
 }
 
 /*
@@ -36,6 +63,7 @@ function isSomeTrue(array, fn) {
  - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
+
 }
 
 /*
@@ -52,8 +80,7 @@ function returnBadArguments(fn) {
  - number не является числом (с текстом "number is not a number")
  - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
-}
+function calculator() {}
 
 export {
     isAllTrue,
